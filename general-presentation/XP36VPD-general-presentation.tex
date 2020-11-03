@@ -70,6 +70,7 @@
 \newcommand{\mathvec}{\ensuremath{\mathbf}}
 \newcommand{\mathmat}{\ensuremath{\mathbf}}
 \newcommand{\mathspace}{\ensuremath{\mathcal}}
+\newcommand{\mathfield}{\ensuremath{\mathbb}}
 
 \begin{document}
 
@@ -186,54 +187,36 @@
 	\begin{itemize}
 		\item Řešíme úlohu "node classification".
 		\item Inspirována metodami word2vec a skip-gram z NLP.
+		\item Náhodné procházky z daného vrcholu (\( M \) procházek délky \( L \))
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{DeepWalk 2}
+	\centering
+	\includegraphics[width=0.8\pagewidth]{images/DeepWalk-word2vec.png}\footnote{\cite{perozzi_deepwalk_2014}}
+\end{frame}
 
+\begin{frame}{DeepWalk -- skip-gram}
+	\centering
+	\includegraphics[width=0.4\pagewidth]{images/SkipGram.pdf}\footnote{\cite{mikolov_efficient_2013}}
+\end{frame}
 
+\begin{frame}{DeepWalk 4}
+	\begin{itemize}
+		\item Pro každý vektor \( v \) učíme mapování \( \Phi : \mathspace{V} \to \mathfield{R}^{\left\lvert \mathfield{V} \right\rvert \times d} \)
+		\item Snažíme se minimalizovat hodnotu
+			\[ - \log \mathrm{P} \left( \left\{ v_{i - w}, \dots, v_{i + w} \right\} \setminus v_i \middle| \Phi \left( v_i \right) \right) \]
+		\item Za předpokladu nezávislosti zjednodušíme
+			\[ - \log \mathrm{P} \left( \left\{ v_{i - w}, \dots, v_{i + w} \right\} \setminus v_i \middle| \Phi \left( v_i \right) \right) = \prod_{\substack{j = i - w \\ j \neq i}}^{i + w} \mathrm{P} \left( v_j \middle| \Phi \left( v_i \right) \right) \]
+		\item Je třeba dále zefektivnit pomocí hierarchical softmax.
+	\end{itemize}
+\end{frame}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%\begin{frame}
-	%\begin{figure}[h]
-		%\centering
-		%\begin{subfigure}[b]{0.18\textwidth}
-			%\centering
-			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/triplet_before.pdf}
-			%\caption{Triplet loss: před}
-		%\end{subfigure}
-		%\hfill
-		%\begin{subfigure}[b]{0.18\textwidth}
-			%\centering
-			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/triplet_after.pdf}
-			%\caption{Triplet loss: po}
-		%\end{subfigure}
-		%\hfill
-		%\begin{subfigure}[b]{0.18\textwidth}
-			%\centering
-			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/magnet_before.pdf}
-			%\caption{Magnet loss: před}
-		%\end{subfigure}
-		%\hfill
-		%\begin{subfigure}[b]{0.18\textwidth}
-			%\centering
-			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/magnet_after.pdf}
-			%\caption{Magnet loss: po}
-		%\end{subfigure}
-		%\caption{Vizualizace rozdílu mezi triplet loss a magnet loss. Obrázek z \cite{rippel_metric_2015}}
-	%\end{figure}
-%\end{frame}
+\begin{frame}{DeepWalk -- závěr}
+	\begin{itemize}
+		\item Použití myšlenek word2vec pro učení se na grafech.
+		\item Neumí klasifikovat nové vrcholy - je třeba přetrénovat model.
+	\end{itemize}
+\end{frame}
 
 \end{document}
