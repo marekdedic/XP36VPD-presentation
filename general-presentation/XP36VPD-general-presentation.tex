@@ -1,0 +1,239 @@
+\documentclass[10pt]{beamer}
+
+\usepackage{polyglossia}
+\usepackage{csquotes}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{color}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{subcaption}
+\usepackage[backend=biber,style=iso-authoryear,sortlocale=en_US,autolang=other,bibencoding=UTF8]{biblatex}
+\usepackage{booktabs}
+\usepackage{graphics}
+\usepackage{pifont}
+\usepackage{tikz}
+
+\addbibresource{zotero.bib}
+
+\setdefaultlanguage{czech}
+\setotherlanguage{english}
+\setmainfont{TeX Gyre Termes}
+\usetheme{Boadilla}
+\usecolortheme{crane}
+\setbeamertemplate{title page}[default][rounded=true,shadow=false]
+\setbeamertemplate{section in toc}[ball unnumbered]
+\setbeamertemplate{bibliography item}{}
+
+\hypersetup{
+	pdfencoding=auto,
+	unicode=true,
+	citecolor=green,
+	filecolor=blue,
+	linkcolor=red,
+	urlcolor=blue
+}
+
+\makeatletter
+\newcommand*{\currentSection}{\@currentlabelname}
+\makeatother
+
+\title[Learning on graph-structured data]
+{
+	Learning on graph-structured data
+}
+
+%\newdate{presentation}{06}{11}{2020}
+%\date{\displaydate{presentation}}
+\date[6. 11. 2020]{6. listopadu 2020}
+
+\author[Marek Dědič]
+{
+	Marek~Dědič\inst{1}
+}
+
+\institute[FJFI ČVUT]
+{
+	\inst{1} ČVUT v Praze, Fakulta jaderná a fyzikálně inženýrská
+}
+
+\AtBeginSection[]{
+	\begin{frame}{\currentSection}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\newcommand{\mathvec}{\ensuremath{\mathbf}}
+\newcommand{\mathmat}{\ensuremath{\mathbf}}
+\newcommand{\mathspace}{\ensuremath{\mathcal}}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Obsah}
+	\tableofcontents
+\end{frame}
+
+% Body
+
+\section{Motivace}
+
+\begin{frame}{Motivace}
+	\begin{itemize}
+		\item Grafy jsou přirozenou abstrakcí pro mnoho matematických úloh
+		\item Využití v chemii, softwarovém inženýrství, zpracování obrazu, medicíně, částicové fyzice, síťové bezpečnosti, detekce fake-news, autonomních vozidlech...
+	\end{itemize}
+	\centering
+	\includegraphics[width=0.7\pagewidth]{images/graphs.png}\footnote{\cite{velickovic_opening_2020}}
+\end{frame}
+
+\begin{frame}{Definice}
+	\begin{itemize}
+		\item Graf \( G = \left( V, E \right) \)
+		\item \( ne \left[ v \right] \) je množina vrcholů, ze kterých vede hrana do \( v \).
+		\item \( co \left[ v \right] \) je množina hran vedoucích z nebo do \( v \).
+		\item \( x_v \) jsou příznaky vrcholu \( v \).
+		\item \( x_e \) jsou příznaky hrany \( v \).
+	\end{itemize}
+\end{frame}
+
+\section{Úlohy}
+
+\begin{frame}{Node classification}
+	\centering
+	\includegraphics[width=0.7\pagewidth]{images/node-classification.png}\footnote{\cite{kubara_machine_2020}}
+\end{frame}
+
+\begin{frame}{Link prediction}
+	\centering
+	\includegraphics[width=0.7\pagewidth]{images/link-prediction.png}\footnote{\cite{kubara_machine_2020}}
+\end{frame}
+
+\begin{frame}{Učení se na celém grafu}
+	\centering
+	\includegraphics[width=0.7\pagewidth]{images/whole-graph-learning.png}\footnote{\cite{kubara_machine_2020}}
+\end{frame}
+
+\begin{frame}{Community detection}
+	\centering
+	\includegraphics[width=0.5\pagewidth]{images/community-detection.png}\footnote{\cite{girvan_community_2002}}
+\end{frame}
+
+\section{GNN}
+
+\begin{frame}{GNN 1}
+	\begin{itemize}
+		\item Řešíme úlohu "node classification".
+		\item Adaptace neuronových sítí na grafová data
+		\item Formálně klasifikace na prostoru \( \mathspace{G} \times \mathspace{N} \) - páry graf + jeden jeho vrchol
+		\item Předpokládáme pro každý vrchol \( v \) a hranu \( e \) příznaky \( \mathvec{x}_v \) a \( \mathvec{x}_e \).
+		\item Modelujeme pro každý vrchol \( v \) skrytý stav \( \mathvec{h}_v \) zachycující informaci o \( v \) a jeho okolí.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GNN 2}
+	\begin{itemize}
+		\item<1-> Modelujeme pro každý vrchol \( v \) skrytý stav \( \mathvec{h}_v \) zachycující informaci o \( v \) a jeho okolí jako 
+			\[ \mathvec{h}_v = f \left( \mathvec{x}_v, \mathvec{x}_{co \left[ v \right]}, \mathvec{h}_{ne \left[ v \right]}, \mathvec{x}_{ne \left[ v \right]} \right) \]
+		\item<2-> ...a výstup pro vrchol \( v \) jako
+			\[ \mathvec{o}_v = g \left( \mathvec{h}_v, \mathvec{x}_v \right) \]
+		\item<3-> Můžeme skrytý stav \( \mathvec{h}_v \) počítat dohromady pro všechny vrcholy iterativně jako
+			\[ \mathmat{H}^{t + 1} = F \left( \mathmat{H}^t, \mathmat{X} \right) \]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GNN 3}
+	\centering
+	\includegraphics[width=0.9\pagewidth]{images/GNN.png}\footnote{\cite{gori_new_2005}}
+\end{frame}
+
+\begin{frame}{GNN -- závěr}
+	\begin{itemize}
+		\item Na iterativní opakování aplikace funkce \( F \) lze nahlížet jako na RNN.
+		\item Lze nahradit iterativní proces za MLP.
+		\item Nepoužívány skryté stavy hran, pouze vrcholů
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GNN -- modifikace}
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}[t]{0.33\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{images/GNN-variants/variant1.pdf}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.43\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{images/GNN-variants/variant3.pdf}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.65\textwidth}
+			\centering
+			\includegraphics[width=1\linewidth]{images/GNN-variants/variant2.pdf}
+		\end{subfigure}
+	\end{figure}\footnote{\cite{zhou_graph_2019}}
+\end{frame}
+
+\section{DeepWalk}
+
+\begin{frame}{DeepWalk 1}
+	\begin{itemize}
+		\item Řešíme úlohu "node classification".
+		\item Inspirována metodami word2vec a skip-gram z NLP.
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{frame}
+	%\begin{figure}[h]
+		%\centering
+		%\begin{subfigure}[b]{0.18\textwidth}
+			%\centering
+			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/triplet_before.pdf}
+			%\caption{Triplet loss: před}
+		%\end{subfigure}
+		%\hfill
+		%\begin{subfigure}[b]{0.18\textwidth}
+			%\centering
+			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/triplet_after.pdf}
+			%\caption{Triplet loss: po}
+		%\end{subfigure}
+		%\hfill
+		%\begin{subfigure}[b]{0.18\textwidth}
+			%\centering
+			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/magnet_before.pdf}
+			%\caption{Magnet loss: před}
+		%\end{subfigure}
+		%\hfill
+		%\begin{subfigure}[b]{0.18\textwidth}
+			%\centering
+			%\includegraphics[width=\textwidth]{images/triplet-magnet-difference/magnet_after.pdf}
+			%\caption{Magnet loss: po}
+		%\end{subfigure}
+		%\caption{Vizualizace rozdílu mezi triplet loss a magnet loss. Obrázek z \cite{rippel_metric_2015}}
+	%\end{figure}
+%\end{frame}
+
+\end{document}
