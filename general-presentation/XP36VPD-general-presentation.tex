@@ -289,7 +289,29 @@
 			\[ \mathmat{H}^{l + 1} = f \left( \mathmat{H}^{(l)}, \mathmat{A} \right) \]
 			kde \( \mathmat{A} \) je adjacenční matice.
 		\item Můžeme vyjádřit jednoduchou vrstvu jako
-			\[ f \left( \mathmat{H}^{(l)}, \mathmat{A} \right) = \sigma \left( \mathmat{A} \mathmat{H}^{(l)} \mathmat{W}^{(l)} \]
+			\[ f \left( \mathmat{H}^{(l)}, \mathmat{A} \right) = \sigma \left( \mathmat{A} \mathmat{H}^{(l)} \mathmat{W}^{(l)} \right) \]
+			kde \( \mathmat{W} \) jsou váhy a \( \sigma \) aktivační funkce.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GCN 3}
+	\begin{itemize}
+		\item Abychom v každém kroku kromě sousedů vrcholu uvažovali i vrchol samotný, použijeme místo \( \mathmat{A} \) matici \( \widehat{\mathmat{A}} = \mathmat{A} + \mathmat{I} \).
+		\item Protože matice \( \mathmat{A} \) není normalizovaná, měnila by se nám škála po každé vrstvě. Abychom tomu zabránili, použijeme místo \( \mathmat{A} \) symetricky normalizovanou matici \( \mathmat{D}^{-\frac{1}{2}} \mathmat{A} \mathmat{D}^{-\frac{1}{2}} \) kde \( \mathmat{D} \) je disgonální matice stupňů jednotlivých vrcholů.
+		\item Dostáváme tedy vrstvu sítě jako
+			\[ f \left( \mathmat{H}^{(l)}, \mathmat{A} \right) = \sigma \left( \widehat{\mathmat{D}}^{-\frac{1}{2}} \widehat{\mathmat{A}} \widehat{\mathmat{D}}^{-\frac{1}{2}} \mathmat{H}^{(l)} \mathmat{W}^{(l)} \right) \]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GCN 4}
+	\centering
+	\includegraphics[width=0.8\pagewidth]{images/GCN.png}\footnote{\cite{kipf_how_2016}}
+\end{frame}
+
+\begin{frame}{node2vec -- závěr}
+	\begin{itemize}
+		\item Použití myšlenek CNN pro učení se na grafech.
+		\item GCN jsou aproximací prvního řádu lokálních spektrálních filtrů na grafech - viz \cite{kipf_semi-supervised_2016}.
 	\end{itemize}
 \end{frame}
 
