@@ -308,10 +308,43 @@
 	\includegraphics[width=0.8\pagewidth]{images/GCN.png}\footnote{\cite{kipf_how_2016}}
 \end{frame}
 
-\begin{frame}{node2vec -- závěr}
+\begin{frame}{GCN -- závěr}
 	\begin{itemize}
 		\item Použití myšlenek CNN pro učení se na grafech.
 		\item GCN jsou aproximací prvního řádu lokálních spektrálních filtrů na grafech - viz \cite{kipf_semi-supervised_2017}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GraphSAGE 1}
+	\begin{itemize}
+		\item GraphSAGE je induktivní metoda -- tedy nepotřebuje při učení znát celý graf.
+		\item Učíme se reprezentaci vektoru \( v \) pomocí reprezentací jeho sousedů, tj.
+			\[ \mathvec{h}_v^{(l + 1)} = \sigma \left( \mathmat{W}^{(l)} \cdot \mathrm{concat} \left( \mathvec{h}_v^{(l)}, \mathvec{h}_{ne \left[ v \right]}^{(l)} \right) \right) \]
+			kde
+			\[ \mathvec{h}_{ne \left[ v \right]}^{(l)} = \textsc{aggregate}_l \left( \left\{ h_u^{(l)} \middle| u \in ne \left[ v \right] \right\} \right) \]
+		\item Potřeba učit speciální ztrátovou funkcí.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GraphSAGE 2}
+	\centering
+	\includegraphics[width=0.7\pagewidth]{images/GraphSAGE.png}\footnote{\cite{hamilton_inductive_2017}}
+\end{frame}
+
+\begin{frame}{GraphSAGE 3}
+	\begin{itemize}
+		\item Máme volbu agregátorů v každé vrstvě
+		\item Aritmetický průměr po složkách vede na vrstvy typu GCN.
+		\item LSTM agregátor (musíme náhodně permutovat sousedy)
+		\item Pooling:
+			\[ \textsc{aggregate}_l = \max \left\{ \sigma \left( \mathmat{W}_{\mathrm{pool}} \mathvec{h}_u^{(l)} + \mathvec{b} \right) \middle| u \in ne \left[ v \right] \right\} \]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GraphSAGE -- závěr}
+	\begin{itemize}
+		\item Induktivní přístup se hodí pro grafy, do kterých po tréninku přibývají vrcholy.
+		\item Nemusíme přepočítávat model, bude fungovat i s novými daty.
 	\end{itemize}
 \end{frame}
 
@@ -320,8 +353,7 @@
 	\includegraphics[width=0.75\pagewidth]{images/thats-all.png}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
-	\frametitle{Zdroje}
+\begin{frame}[allowframebreaks]{Zdroje}
 	\printbibliography
 \end{frame}
 
