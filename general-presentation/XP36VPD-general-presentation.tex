@@ -22,6 +22,7 @@
 
 \setdefaultlanguage{czech}
 \setotherlanguage{english}
+\usefonttheme{professionalfonts}
 \setmainfont{TeX Gyre Termes}
 \usetheme{Boadilla}
 \usecolortheme{crane}
@@ -131,7 +132,7 @@
 
 \begin{frame}{GNN 1}
 	\begin{itemize}
-		\item Řešíme úlohu "node classification".
+		\item Řešíme úlohu \enquote{Node classification}.
 		\item Adaptace neuronových sítí na grafová data
 		\item Formálně klasifikace na prostoru \( \mathspace{G} \times \mathspace{N} \) - páry graf + jeden jeho vrchol
 		\item Předpokládáme pro každý vrchol \( v \) a hranu \( e \) příznaky \( \mathvec{x}_v \) a \( \mathvec{x}_e \).
@@ -141,11 +142,11 @@
 
 \begin{frame}{GNN 2}
 	\begin{itemize}
-		\item<1-> Modelujeme pro každý vrchol \( v \) skrytý stav \( \mathvec{h}_v \) zachycující informaci o \( v \) a jeho okolí jako 
+		\item Modelujeme pro každý vrchol \( v \) skrytý stav \( \mathvec{h}_v \) zachycující informaci o \( v \) a jeho okolí jako
 			\[ \mathvec{h}_v = f \left( \mathvec{x}_v, \mathvec{x}_{co \left[ v \right]}, \mathvec{h}_{ne \left[ v \right]}, \mathvec{x}_{ne \left[ v \right]} \right) \]
-		\item<2-> ...a výstup pro vrchol \( v \) jako
+		\item ...a výstup pro vrchol \( v \) jako
 			\[ \mathvec{o}_v = g \left( \mathvec{h}_v, \mathvec{x}_v \right) \]
-		\item<3-> Můžeme skrytý stav \( \mathvec{h}_v \) počítat dohromady pro všechny vrcholy iterativně jako
+		\item Můžeme skrytý stav \( \mathvec{h}_v \) počítat dohromady pro všechny vrcholy iterativně jako
 			\[ \mathmat{H}^{t + 1} = F \left( \mathmat{H}^t, \mathmat{X} \right) \]
 	\end{itemize}
 \end{frame}
@@ -185,7 +186,6 @@
 
 \begin{frame}{DeepWalk 1}
 	\begin{itemize}
-		\item Řešíme úlohu "node classification".
 		\item Inspirována metodami word2vec a skip-gram z NLP.
 		\item Náhodné procházky z daného vrcholu (\( M \) procházek délky \( L \))
 	\end{itemize}
@@ -203,11 +203,11 @@
 
 \begin{frame}{DeepWalk 4}
 	\begin{itemize}
-		\item Pro každý vektor \( v \) učíme mapování \( \Phi : \mathspace{V} \to \mathfield{R}^{\left\lvert \mathfield{V} \right\rvert \times d} \)
-		\item Snažíme se minimalizovat hodnotu
-			\[ - \log \mathrm{P} \left( \left\{ v_{i - w}, \dots, v_{i + w} \right\} \setminus v_i \middle| \Phi \left( v_i \right) \right) \]
+		\item Pro každý vektor \( v \) učíme jeho reprezentaci \( f : \mathspace{V} \to \mathfield{R}^{\left\lvert \mathfield{V} \right\rvert \times d} \)
+		\item Snažíme se maximalizovat hodnotu
+			\[ \mathrm{P} \left( \left\{ v_{i - w}, \dots, v_{i + w} \right\} \setminus v_i \middle| f \left( v_i \right) \right) \]
 		\item Za předpokladu nezávislosti zjednodušíme
-			\[ - \log \mathrm{P} \left( \left\{ v_{i - w}, \dots, v_{i + w} \right\} \setminus v_i \middle| \Phi \left( v_i \right) \right) = \prod_{\substack{j = i - w \\ j \neq i}}^{i + w} \mathrm{P} \left( v_j \middle| \Phi \left( v_i \right) \right) \]
+			\[ \mathrm{P} \left( \left\{ v_{i - w}, \dots, v_{i + w} \right\} \setminus v_i \middle| f \left( v_i \right) \right) = \prod_{\substack{j = i - w \\ j \neq i}}^{i + w} \mathrm{P} \left( v_j \middle| f \left( v_i \right) \right) \]
 		\item Je třeba dále zefektivnit pomocí hierarchical softmax.
 	\end{itemize}
 \end{frame}
@@ -216,6 +216,80 @@
 	\begin{itemize}
 		\item Použití myšlenek word2vec pro učení se na grafech.
 		\item Neumí klasifikovat nové vrcholy - je třeba přetrénovat model.
+	\end{itemize}
+\end{frame}
+
+\section{node2vec}
+
+\begin{frame}{node2vec 1}
+	\begin{itemize}
+		\item Inspirována metodou word2vec z NLP.
+		\item Hledáme embedding \( \mathrm{node2vec} : \mathspace{G} \to \mathfield{R}^n \).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{node2vec 2}
+	\centering
+	\includegraphics[width=0.9\pagewidth]{images/node2vec.png}\footnote{\cite{cohen_node2vec_2018}}
+\end{frame}
+
+\begin{frame}{node2vec 3}
+	\begin{itemize}
+		\item Pro každý vektor \( v \) učíme jeho reprezentaci \( f : \mathspace{V} \to \mathfield{R}^{\left\lvert \mathfield{V} \right\rvert \times d} \)
+		\item Snažíme se maximalizovat hodnotu
+			\[ \mathrm{P} \left( ne \left[ v \right] \middle| f \left( v \right) \right) \]
+		\item Za předpokladu nezávislosti zjednodušíme
+			\[ \mathrm{P} \left( ne \left[ v \right] \middle| f \left( v \right) \right) = \prod_{v_i \in ne \left[ v \right]} \mathrm{P} \left( v_i \middle| f \left( v \right) \right) \]
+		\item Je třeba dále zefektivnit pomocí hierarchical softmax a negative sampling.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{node2vec 4}
+	\begin{itemize}
+		\item Jak hledat \( ne \left[ v \right] \)?
+		\item 2 extrémy: BFS, DFS
+		\item Běžná náhodná procházka: Jsem-li ve vrcholu \( v \), jdu do nějakého vrcholu spojeného s \( v \), se stejnou pravděpodobností pro všechny takové vrcholy.
+		\item Upravíme náhodnou procházku, aby interpolovala mezi BFS a DFS.
+		\item Pokud jsme právě přišli z vrcholu \( t \) do vrcholu \( v \) a zvažujeme, kam jít dál, všem kandidátům \( x \) přiřadíme váhu
+			\[ \alpha \left( t, x \right) = \begin{cases}
+				\frac{1}{p} &\text{ pro } d_{tx} = 0 \\
+				1 &\text{ pro } d_{tx} = 1 \\
+				\frac{1}{q} &\text{ pro } d_{tx} = 2 \\
+			\end{cases} \]
+			kde \( d_{tx} \) je délka nejkratší cesty z \( t \) do \( x \) a \( p, q \) jsou parametry modelu.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{node2vec 5}
+	\centering
+	\includegraphics[width=0.7\pagewidth]{images/node2vec-alpha.png}\footnote{\cite{grover_node2vec_2016}}
+\end{frame}
+
+\begin{frame}{node2vec -- závěr}
+	\begin{itemize}
+		\item Použití myšlenek word2vec pro učení se na grafech.
+		\item Vylepšení DeepWalk
+		\item Neumí klasifikovat nové vrcholy - je třeba přetrénovat model.
+	\end{itemize}
+\end{frame}
+
+\section{GCN}
+
+\begin{frame}{GCN 1}
+	\begin{itemize}
+		\item Řešíme úlohu \enquote{Node classification}.
+		\item Inspirována konvolučními neuronovými sítěmi.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{GCN 2}
+	\begin{itemize}
+		\item Vyjádření neuronové sítě operující na celém grafu, podobně jako u GNN.
+		\item Každá vrstva je tvaru
+			\[ \mathmat{H}^{l + 1} = f \left( \mathmat{H}^{(l)}, \mathmat{A} \right) \]
+			kde \( \mathmat{A} \) je adjacenční matice.
+		\item Můžeme vyjádřit jednoduchou vrstvu jako
+			\[ f \left( \mathmat{H}^{(l)}, \mathmat{A} \right) = \sigma \left( \mathmat{A} \mathmat{H}^{(l)} \mathmat{W}^{(l)} \]
 	\end{itemize}
 \end{frame}
 
