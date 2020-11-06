@@ -1,5 +1,19 @@
-# Created by https://www.toptal.com/developers/gitignore/api/vim,latex
-# Edit at https://www.toptal.com/developers/gitignore?templates=vim,latex
+# Created by https://www.toptal.com/developers/gitignore/api/vim,latex,jupyternotebooks
+# Edit at https://www.toptal.com/developers/gitignore?templates=vim,latex,jupyternotebooks
+
+### JupyterNotebooks ###
+# gitignore template for Jupyter Notebooks
+# website: http://jupyter.org/
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Remove previous ipynb_checkpoints
+#   git rm -r .ipynb_checkpoints/
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
@@ -313,4 +327,4 @@ tags
 # Persistent undo
 [._]*.un~
 
-# End of https://www.toptal.com/developers/gitignore/api/vim,latex
+# End of https://www.toptal.com/developers/gitignore/api/vim,latex,jupyternotebooks
