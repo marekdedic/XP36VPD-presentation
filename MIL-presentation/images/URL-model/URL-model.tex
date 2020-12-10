@@ -1,0 +1,59 @@
+\RequirePackage{luatex85}
+\documentclass[tikz]{standalone}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{csquotes}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+
+\setdefaultlanguage{english}
+\setmainfont{TeX Gyre Termes}
+
+\begin{document}
+
+\begin{tikzpicture}
+	%\draw (-1, 0.5) node[anchor=north] {http://\textcolor{red}{evil}.\textcolor{red}{com}/\textcolor{violet}{path}/\textcolor{violet}{file}?\textcolor{blue}{key=val}\&\textcolor{blue}{get=exploit.js}};
+	\draw (-3.0, -0.1) node[anchor=north] {\textit{\scriptsize designed token features}};
+	\draw (0.0, -0.1) node[anchor=north] {\textit{\scriptsize learned features of URL parts}};
+	\draw (3.25, -0.1) node[anchor=north] {\textit{\scriptsize learned features of an URL}};
+	\draw (6.4, -0.1) node[anchor=north] {\textit{\scriptsize learned features of a SLD}};
+
+	\def\boxX{-4.7}
+	\foreach \y / \text / \marker / \ind in {0/\textcolor{red}{evil}/d/1, -0.8/\textcolor{red}{com}/d/2, -1.9/\textcolor{violet}{path}/p/1, -2.7/\textcolor{violet}{file}/p/2, -3.8/\textcolor{blue}{key=val}/q/1, -4.6/\textcolor{blue}{get=exploit.js}/q/2}
+	{
+		\draw (\boxX, \y - 1.15) node[anchor=east] {\text};
+		\draw (\boxX + 1.7, \y - 1) node[anchor=south] {\scriptsize \text};
+		\draw[->] (\boxX + 0.1, \y - 1.15) -- node[above] {\scriptsize \( \psi \)} ++ (0.4, 0);
+		\draw (\boxX + 0.7, \y - 1) rectangle ++(2, -0.35) node[pos=0.5] {\scriptsize \( \marker^{(\ind)}_1 \dots \marker^{(\ind)}_n \)};
+	}
+
+	\def\boxX{-1.9}
+	\foreach \y / \height in {-2.15/1.15, -4.05/1.15, -5.95/1.15}
+	{
+		\draw[decoration={brace,mirror,raise=5pt},decorate] (\boxX, \y) -- ++(0, \height);
+	}
+	
+	\def\boxX{-1.5}
+	\foreach \y / \marker / \opMarker / \text in {-1.575/d/D/\textcolor{red}{evil.com}, -3.475/p/P/\textcolor{violet}{path/file}, -5.375/q/Q/\textcolor{blue}{key=val\&get=exploit.js}}
+	{
+		\draw[->] (\boxX, \y) -- node[above] {\scriptsize \( \phi_\opMarker \)} ++ (0.4, 0);
+		\draw (\boxX + 1.55, \y + 0.25) node[anchor=south] {\scriptsize \text};
+		\draw (\boxX + 0.6, \y + 0.175) rectangle ++(2, -0.35) node[pos=0.5] {\scriptsize \( \marker_1 \dots \marker_n \)};
+	}
+	
+	\draw[decoration={brace,mirror,raise=5pt},decorate] (1.2, -5.55) -- ++(0, 4.15);
+	\draw[->] (1.6, -3.475) -- node[above] {\scriptsize \( \phi_U \)} ++ (0.4, 0);
+	\draw (4.6, -2.8) node[anchor=south] {\scriptsize http://\textcolor{red}{evil}.\textcolor{red}{com}/\textcolor{violet}{path}/\textcolor{violet}{file}?\textcolor{blue}{key=val}\&\textcolor{blue}{get=exploit.js}};
+	\draw[->] (3.6, -2.8) to[out=200,in=90] (3.2, -3.15);
+	\draw (2.2, -3.3) rectangle ++(2, -0.35) node[pos=0.5] {\scriptsize \( u_1 \dots u_{3n} \)};
+
+	\draw (2.2, -6.4) rectangle ++(2, -0.35) node[pos=0.5] {\scriptsize \( c_1 \dots c_{m} \)};
+	\draw[decoration={brace,mirror,raise=5pt},decorate] (4.3, -6.75) -- ++(0, 3.45);
+	
+	\draw[->] (4.75, -5.025) -- node[above] {\scriptsize \( \phi_{SLD} \)} ++ (0.4, 0);
+	\draw (6.3, -4.825) node[anchor=south] {\scriptsize evil.com};
+	\draw (5.4, -4.85) rectangle ++(2, -0.35) node[pos=0.5] {\scriptsize \( s_1 \dots s_k \)};
+\end{tikzpicture}
+
+\end{document}

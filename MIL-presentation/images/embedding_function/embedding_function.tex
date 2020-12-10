@@ -1,0 +1,51 @@
+\RequirePackage{luatex85}
+\documentclass[tikz]{standalone}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{csquotes}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\setdefaultlanguage{english}
+\setmainfont{TeX Gyre Termes}
+
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\begin{tikzpicture}
+		\tikzstyle{vector}=[inner sep=1pt]
+		\tikzstyle{function}=[rectangle,rounded corners=7pt,draw,minimum width=1cm,inner sep=3pt]
+
+		\foreach \y/\i in {2/1,1/2,0/3,-2/l}
+			\node[vector] (x\i) at (-2,\y)  {$x_{\i}\in\mathbb{R}^d$};
+		\node at (-2,-1)  {$\vdots$};
+
+		\foreach \y/\i in {2/1,1/2,0/3,-2/l}
+			\node[function] (h\i) at (0,\y)  {$h(x_{\i},\theta_h)$};
+
+		\foreach \y/\i in {2/1,1/2,0/3,-2/l}
+			\node[vector] (xtilde\i) at (2,\y)  {$\tilde{x}_{\i}\in\mathbb{R}^u$};
+		\node at (2,-1)  {$\vdots$};
+		\foreach \i in {1,2,3,l}
+			\draw[->] ($(x\i.east)+(+0,0)$) -- ($(h\i.west)+(0,0)$) ;
+		\foreach \i in {1,2,3,l}
+			\draw[->] ($(h\i.east)+(+0,0)$) -- ($(xtilde\i.west)+(-0,0)$) ;
+
+		\node[function] (g) at (5,0) {$g\left(\lbrace\tilde{x}_i\rbrace_{i=1}^l,\theta_g\right)$}; 
+		\foreach \i in {1,2,3,l}
+			\draw[->] ($(xtilde\i.east)+(+0,0)$) -- ($(g.west)+(-0,0)$) ;
+		\node[vector] (xbar) at (7.5,0)  {$\bar{x}\in\mathbb{R}^u$};
+		\draw[->] ($(g.east)+(+0,0)$) -- ($(xbar.west)+(-0,0)$) ;
+
+		\node[function] (f) at (9,0) {$f\left(\bar{x},\theta_f\right)$}; 
+		\draw[->] ($(xbar.east)+(+0,0)$) -- ($(f.west)+(-0,0)$) ;
+
+		\draw [thick,decoration={brace,mirror,raise=0.5cm},decorate] (xl.west) -- (xtildel.east) node [pos=0.5,anchor=north,yshift=-0.55cm] {Instance-level features}; 
+
+		\draw [thick,decoration={brace,mirror,raise=0.5cm},decorate] (g.east) -- (f.east) node [pos=0.5,anchor=north,yshift=-0.55cm] {Bag-level features}; 
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,25 @@
+\RequirePackage{luatex85}
+\documentclass[tikz]{standalone}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{csquotes}
+\usepackage{amsmath}
+
+\setdefaultlanguage{czech}
+\setmainfont{TeX Gyre Termes}
+
+\usetikzlibrary{decorations.pathreplacing}
+
+\begin{document}
+
+\begin{tikzpicture}
+	\node (url) at (0,0) {Sample};
+	\node (feature) at (4,0) {\( x = ( x_1, \dots, x_d ) \)};
+	\node (classifier) at (9,0) {\( y = \begin{cases} +1 \\ -1 \end{cases} \)};
+		\draw [->] (url.east) -- (feature.west) node [pos=0.5,above] {extraction};
+		\draw [->] (url.east) -- (feature.west) node [pos=0.5,below] {of features};
+		\draw [->] (feature.east) -- (classifier.west) node [pos=0.5,above] {classification};
+\end{tikzpicture}
+
+\end{document}

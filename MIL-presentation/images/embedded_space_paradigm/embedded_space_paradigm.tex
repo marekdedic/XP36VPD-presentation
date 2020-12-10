@@ -1,0 +1,25 @@
+\RequirePackage{luatex85}
+\documentclass[tikz]{standalone}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{csquotes}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\setdefaultlanguage{czech}
+\setmainfont{TeX Gyre Termes}
+
+\usetikzlibrary{decorations.pathreplacing}
+
+\begin{document}
+
+\begin{tikzpicture}
+	\node (bag) at (0,0) {\( \left\{ \begin{array}{c} ( x_{1, 1}, \dots, x_{1, d}) \\ (x_{2, 1}, \dots, x_{2, d} ) \\ \vdots \\ ( x_{b, 1}, \dots, x_{b, d} ) \end{array} \right\} \)};
+	\node (feature) at (6,0) {\( \bar{x} \in \mathbb{R}^m \)};
+	\node (classifier) at (10,0) {\( y = \begin{cases} +1 \\ -1 \end{cases} \)};
+	\draw [->] (bag.east) -- (feature.west) node [pos=0.5,above] {\( \phi(b) \) embeds the bag} node [pos=0.5,below] {in a vector};
+	\draw [->] (feature.east) -- (classifier.west) node [pos=0.5,above] {classification};
+\end{tikzpicture}
+
+\end{document}
