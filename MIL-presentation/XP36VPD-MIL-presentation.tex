@@ -116,12 +116,35 @@
 	\includegraphics{images/multi_instance_learning/multi_instance_learning.pdf}
 \end{frame}
 
+\begin{frame}{Multi-instance classification}
+	\begin{itemize}
+		\item Classification \( \mathspace{B} \to \mathspace{Y} \)
+		\item \( \mathspace{B} \subset \mathcal{P}^M \left( \mathspace{X} \right) \)
+		\item Example: Locks and keychains
+		\item Example: Multiple objects in one image
+		\item Example: Network traffic
+	\end{itemize}
+\end{frame}
+
+\section{MIL paradigms}
+
 \begin{frame}{Instance-space paradigm}
-	TODO
+	\begin{itemize}
+		\item Original MIL formalism
+		\item Assumption: \( y_B = \max_{x \in B} \left( y_x \right) \in \mathspace{Y} \)
+		\item Model: \( f : \mathspace{X} \to \mathspace{Y} \)
+		\item Aggregation: \( f \left( B \right) = \max_{x \in B} \left( f \left( x \right) \right) \)
+		\item BP-MIP (\cite{zhou_neural_2002}), EM-DD (\cite{zhang_em-dd:_2002})
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Bag-space paradigm}
-	TODO
+	\begin{itemize}
+		\item Kernel \( k : \mathspace{B} \times \mathspace{B} \to \mathfield{R}_0^+ \)
+		\item Model: \( f : \mathspace{B} \to \mathspace{Y} \)
+		\item Kernel example - modified Hausdorff distance \( H \left( B_1, B_2 \right) = \min_{x \in B_1} \min_{y \in B_2} \left\lVert x - y \right\rVert \)
+		\item Citation-kNN (\cite{wang_solving_2000}), Support Measure Machines (\cite{muandet_learning_2012})
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Multi-instance classification}
@@ -134,10 +157,40 @@
 	\includegraphics[width=0.9\pagewidth]{images/embedded_space_paradigm/embedded_space_paradigm.pdf}
 \end{frame}
 
+\begin{frame}{Embedded space paradigm}
+	\begin{itemize}
+		\item Embedding function: \( \phi : \mathspace{B} \to \overline{\mathspace{X}} \)
+		\item MILES (\cite{chen_miles:_2006}) use instance dictionary
+		\item MIL-URL (\cite{pevny_nested_2020}) uses NNs:
+		\item \( f_I : \mathspace{X}_1 \to \mathspace{X}_2 \)
+		\item \( g : \mathspace{B}_{\mathspace{X}_2} \to \overline{\mathspace{X}}_1 \)
+		\item \( f_B : \overline{\mathspace{X}}_1\to \overline{\mathspace{X}}_2 \)
+		\item \( \phi \left( B \right) : f_B \left( g \left( \left\{ f_I \left( x \right) \middle| x \in B \right\} \right) \right) \)
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{The embedding function \( \phi \)}
 	\centering
-	\includegraphics[width=0.9\pagewidth]{images/embedding_function/embedding_function.pdf}
+	\includegraphics[width=0.9\pagewidth]{images/embedding_function/embedding_function.pdf}\footnote{\cite{pevny_using_2017}}
 \end{frame}
+
+\begin{frame}{Model for second-level domains}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{images/URL-model/URL-model.pdf}\footnote{\cite{dedic_loss_2020}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{A probabilistic formalism}
+	\begin{itemize}
+		\item Let \( \mathcal{P}^\mathspace{X} \) be the set of all probability measures on \( \mathspace{X} \).
+		\item Ordinary classification is \( P \to \mathspace{Y} \) where \( P \in \mathcal{P}^\mathspace{X} \)
+		\item Multi-instance classification is \( \mathcal{P}^\mathspace{X} \to \mathspace{Y} \)
+		\item A bag is \( B = \left\{ x_i \middle| x_i \sim P, i \in \left\{ 1, \dots, m \right\}, m \in \mathfield{N}_0 \right\} \) where \( P \in \mathcal{P}^\mathspace{X} \) is dependent on \( y_B \).
+	\end{itemize}
+\end{frame}
+
+\section{MIL \& Clustering}
 
 \begin{frame}{MIL \& Clustering}
 	\begin{itemize}
@@ -154,15 +207,11 @@
 	\end{center}
 \end{frame}
 
-\section{Contrastive predictive coding}
-
 \begin{frame}{Contrastive predictive coding}
 	The approach based on Contrastive Predictive Coding is represented with the loss function \( L_\mathrm{CPC} \):
 	\[ \mathmat{D}_{ij} = \left\lVert \phi \left( B_i^{(1)} \right) - \phi \left( B_j^{(2)} \right) \right\rVert_2^2 \]
 	\[ L_\mathrm{CPC} = \frac{1}{n} \sum_{i = 1}^n \left( \log \left( \mathmat{D}_{ii} \right) - \log \sum_{\substack{j = 1 \\ j \neq i}}^n \mathmat{D}_{ij} \right) \]
 \end{frame}
-
-\section{Triplet loss}
 
 \begin{frame}{Triplet loss}
 	Triplet loss is a supervised alternative:
@@ -178,8 +227,6 @@
 	\end{cases} \]
 	\[ L_\mathrm{triplet} = \sum_{ij} \eta_{ij} \mathmat{D}_{ij} + c \sum_{ijl} \eta_{ij} \left( 1 - \mathmat{y}_{il} \right) \max \left( 0, 1 + \mathmat{D}_{ij} - \mathmat{D}_{il} \right) \]
 \end{frame}
-
-\section{Magnet loss}
 
 \begin{frame}{Magnet loss}
 	\begin{figure}[h]

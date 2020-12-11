@@ -1,0 +1,128 @@
+
+@inproceedings{zhang_em-dd:_2002,
+	title = {{EM}-{DD}: An Improved Multiple-Instance Learning Technique},
+	url = {http://papers.nips.cc/paper/1959-em-dd-an-improved-multiple-instance-learning-technique.pdf},
+	shorttitle = {{EM}-{DD}},
+	pages = {1073--1080},
+	booktitle = {Advances in neural information processing systems},
+	author = {Zhang, Qi and Goldman, Sally A.},
+	urldate = {2017-07-01},
+	date = {2002},
+}
+
+@inproceedings{muandet_learning_2012,
+	title = {Learning from Distributions via Support Measure Machines},
+	url = {http://papers.nips.cc/paper/4825-learning-from-distributions-via-support-measure-machines},
+	pages = {10--18},
+	booktitle = {Advances in neural information processing systems},
+	author = {Muandet, Krikamol and Fukumizu, Kenji and Dinuzzo, Francesco and Schölkopf, Bernhard},
+	urldate = {2017-06-29},
+	date = {2012},
+}
+
+@inproceedings{zhou_neural_2002,
+	title = {Neural Networks for Multi-Instance Learning},
+	url = {http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/techrep02.pdf},
+	pages = {455--459},
+	booktitle = {Proceedings of the International Conference on Intelligent Information Technology, Beijing, China},
+	author = {Zhou, Zhi-Hua and Zhang, Min-Ling},
+	urldate = {2017-06-26},
+	date = {2002-08},
+	langid = {english},
+}
+
+@article{rippel_metric_2016,
+	title = {Metric Learning with Adaptive Density Discrimination},
+	url = {http://arxiv.org/abs/1511.05939},
+	abstract = {Distance metric learning ({DML}) approaches learn a transformation to a representation space where distance is in correspondence with a predefined notion of similarity. While such models offer a number of compelling benefits, it has been difficult for these to compete with modern classification algorithms in performance and even in feature extraction. In this work, we propose a novel approach explicitly designed to address a number of subtle yet important issues which have stymied earlier {DML} algorithms. It maintains an explicit model of the distributions of the different classes in representation space. It then employs this knowledge to adaptively assess similarity, and achieve local discrimination by penalizing class distribution overlap. We demonstrate the effectiveness of this idea on several tasks. Our approach achieves state-of-the-art classification results on a number of fine-grained visual recognition datasets, surpassing the standard softmax classifier and outperforming triplet loss by a relative margin of 30-40\%. In terms of computational performance, it alleviates training inefficiencies in the traditional triplet loss, reaching the same error in 5-30 times fewer iterations. Beyond classification, we further validate the saliency of the learnt representations via their attribute concentration and hierarchy recovery properties, achieving 10-25\% relative gains on the softmax classifier and 25-50\% on triplet loss in these tasks.},
+	journaltitle = {{arXiv}:1511.05939 [cs, stat]},
+	author = {Rippel, Oren and Paluri, Manohar and Dollar, Piotr and Bourdev, Lubomir},
+	urldate = {2020-06-05},
+	date = {2016-03-01},
+	eprinttype = {arxiv},
+	eprint = {1511.05939},
+	keywords = {Statistics - Machine Learning, Computer Science - Machine Learning},
+}
+
+@article{pevny_nested_2020,
+	title = {Nested Multiple Instance Learning in Modelling of {HTTP} network traffic},
+	url = {http://arxiv.org/abs/2002.04059},
+	abstract = {In many interesting cases, the application of machine learning is hindered by data having a complicated structure stimulated by a structured file-formats like {JSONs}, {XMLs}, or {ProtoBuffers}, which is non-trivial to convert to a vector / matrix. Moreover, since the structure frequently carries a semantic meaning, reflecting it in the machine learning model should improve the accuracy but more importantly it facilitates the explanation of decisions and the model. This paper demonstrates on the identification of infected computers in the computer network from their {HTTP} traffic, how to achieve this reflection using recent progress in multiple-instance learning. The proposed model is compared to complementary approaches from the prior art, the first relying on human-designed features and the second on automatically learned features through convolution neural networks. In a challenging scenario measuring accuracy only on unseen domains/malware families, the proposed model is superior to the prior art while providing a valuable feedback to the security researchers. We believe that the proposed framework will found applications elsewhere even beyond the field of security.},
+	journaltitle = {{arXiv}:2002.04059 [cs]},
+	author = {Pevny, Tomas and Dedic, Marek},
+	urldate = {2020-06-25},
+	date = {2020-02-10},
+	eprinttype = {arxiv},
+	eprint = {2002.04059},
+	keywords = {Computer Science - Cryptography and Security},
+}
+
+@inproceedings{pevny_using_2017,
+	title = {Using Neural Network Formalism to Solve Multiple-Instance Problems},
+	isbn = {978-3-319-59072-1},
+	url = {https://link.springer.com/chapter/10.1007/978-3-319-59072-1_17},
+	doi = {10.1007/978-3-319-59072-1_17},
+	abstract = {Many objects in the real world are difficult to describe by means of a single numerical vector of a fixed length, whereas describing them by means of a set of vectors is more natural. Therefore, Multiple instance learning ({MIL}) techniques have been constantly gaining in importance throughout the last years. {MIL} formalism assumes that each object (sample) is represented by a set (bag) of feature vectors (instances) of fixed length, where knowledge about objects (e.g., class label) is available on bag level but not necessarily on instance level. Many standard tools including supervised classifiers have been already adapted to {MIL} setting since the problem got formalized in the late nineties. In this work we propose a neural network ({NN}) based formalism that intuitively bridges the gap between {MIL} problem definition and the vast existing knowledge-base of standard models and classifiers. We show that the proposed {NN} formalism is effectively optimizable by a back-propagation algorithm and can reveal unknown patterns inside bags. Comparison to 14 types of classifiers from the prior art on a set of 20 publicly available benchmark datasets confirms the advantages and accuracy of the proposed solution.},
+	eventtitle = {International Symposium on Neural Networks},
+	pages = {135--142},
+	booktitle = {Advances in Neural Networks - {ISNN} 2017},
+	publisher = {Springer, Cham},
+	author = {Pevný, Tomáš and Somol, Petr},
+	urldate = {2018-05-23},
+	date = {2017-06-21},
+}
+
+@article{chen_miles:_2006,
+	title = {{MILES}: Multiple-Instance Learning via Embedded Instance Selection},
+	volume = {28},
+	issn = {0162-8828},
+	doi = {10.1109/TPAMI.2006.248},
+	shorttitle = {{MILES}},
+	abstract = {Multiple-instance problems arise from the situations where training class labels are attached to sets of samples (named bags), instead of individual samples within each bag (called instances). Most previous multiple-instance learning ({MIL}) algorithms are developed based on the assumption that a bag is positive if and only if at least one of its instances is positive. Although the assumption works well in a drug activity prediction problem, it is rather restrictive for other applications, especially those in the computer vision area. We propose a learning method, {MILES} (multiple-instance learning via embedded instance selection), which converts the multiple-instance learning problem to a standard supervised learning problem that does not impose the assumption relating instance labels to bag labels. {MILES} maps each bag into a feature space defined by the instances in the training bags via an instance similarity measure. This feature mapping often provides a large number of redundant or irrelevant features. Hence, 1-norm {SVM} is applied to select important features as well as construct classifiers simultaneously. We have performed extensive experiments. In comparison with other methods, {MILES} demonstrates competitive classification accuracy, high computation efficiency, and robustness to labeling uncertainty},
+	pages = {1931--1947},
+	number = {12},
+	journaltitle = {{IEEE} Transactions on Pattern Analysis and Machine Intelligence},
+	author = {Chen, Yixin and Bi, Jinbo and Wang, J. Z.},
+	date = {2006-12},
+	keywords = {1-norm support vector machine, Algorithms, Application software, Artificial Intelligence, classification accuracy, computer vision, drug activity prediction, drug activity prediction., Drugs, embedded instance selection, feature extraction, feature mapping, feature subset selection, image categorization, Image Enhancement, Image Interpretation, Computer-Assisted, Imaging, Three-Dimensional, Information Storage and Retrieval, Labeling, labeling uncertainty, learning (artificial intelligence), Learning systems, {MILES}, Multiple-instance learning, multiple-instance learning algorithms, object recognition, pattern classification, Reproducibility of Results, Robustness, Sensitivity and Specificity, supervised learning, support vector machine, Support vector machine classification, support vector machines, Uncertainty},
+}
+
+@inproceedings{wang_solving_2000,
+	location = {Stanford University, Stanford, {CA}, {USA}},
+	title = {Solving Multiple-Instance Problem: A Lazy Learning Approach},
+	url = {http://cogprints.org/2124/},
+	shorttitle = {Solving Multiple-Instance Problem},
+	abstract = {As opposed to traditional supervised learning, multiple-instance learning 
+    concerns the problem of classifying a bag of instances, given bags that are 
+    labeled by a teacher as being overall positive or negative. Current research 
+    mainly concentrates on adapting traditional concept learning to solve this 
+    problem. In this paper we investigate the use of lazy learning and Hausdorff 
+    distance to approach the multiple-instance problem. We present two variants of 
+    the K-nearest neighbor algorithm, called Bayesian-{KNN} and Citation-{KNN}, solving 
+    the multiple-instance problem. Experiments on the Drug discovery benchmark data 
+    show that both algorithms are competitive with the best ones conceived in the 
+    concept learning framework. Further work includes exploring of a combination of 
+    lazy and eager multiple-instance problem classifiers.},
+	eventtitle = {Seventeenth International Conference on Machine Learning},
+	pages = {1119--1125},
+	booktitle = {Proceedings of the Seventeenth International Conference on Machine Learning},
+	publisher = {Morgan Kaufmann},
+	author = {Wang, Jun and Zucker, Jean-Daniel},
+	editor = {Langley, Pat},
+	urldate = {2017-07-01},
+	date = {2000},
+}
+
+@inproceedings{dedic_loss_2020,
+	location = {Oravská Lesná, Slovakia},
+	title = {Loss Functions for Clustering in Multi-instance Learning},
+	url = {http://ceur-ws.org/Vol-2718/paper05.pdf},
+	abstract = {Multi-instance learning belongs to one of recently fast developing areas of machine learning. It is a supervised learning method and this paper reports research into its unsupervised counterpart, multi-instance clustering. Whereas traditional clustering clusters points, multi-instance clustering clusters bags, i.e. multisets of points or of other kinds of objects. The paper focuses on the problem of loss functions for clustering. Three sophisticated loss functions used for clustering of points, contrastive predictive coding, triplet loss and magnet loss, are elaborated for multi-instance clustering. Finally, they are compared on 18 benchmark datasets, as well as on a real-world dataset.},
+	eventtitle = {Information Technologies - Applications and Theory ({ITAT} 2020)},
+	pages = {137--146},
+	booktitle = {Proceedings of the 20th Conference Information Technologies - Applications and Theory ({ITAT} 2020)},
+	publisher = {{CEUR}-{WS}.org},
+	author = {Dědič, Marek and Pevnỳ, Tomáš and Bajer, Lukáš and Holeňa, Martin},
+	date = {2020-09-18},
+	file = {Full Text:/home/marekdedic/Zotero/storage/UV9IPN8W/Dědič et al. - Loss Functions for Clustering in Multi-instance Le.pdf:application/pdf},
+}
